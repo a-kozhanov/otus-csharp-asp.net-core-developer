@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);1591</NoWarn>
+        <UserSecretsId>1174e9ce-8276-4692-bd56-5a0244752c63</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Otus.Teaching.PromoCodeFactory.Core\Otus.Teaching.PromoCodeFactory.Core.csproj" />
+      <ProjectReference Include="..\Otus.Teaching.PromoCodeFactory.DataAccess\Otus.Teaching.PromoCodeFactory.DataAccess.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.13" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.13" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.13" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.13">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.11" />
+      <PackageReference Include="NSwag.AspNetCore" Version="13.10.8" />
+    </ItemGroup>
+
+</Project>
