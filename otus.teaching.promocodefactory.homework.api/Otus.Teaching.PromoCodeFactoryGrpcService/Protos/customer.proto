@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option csharp_namespace = "Otus.Teaching.PromoCodeFactoryGrpcService";
+
+import "google/protobuf/empty.proto";
+package customer;
+
+
+service Customer {
+  rpc GetCustomers (google.protobuf.Empty) returns (stream CustomerModel);
+  rpc GetCustomer (CustomerRequest) returns (stream CustomerModel);
+  rpc CreateCustomer (CustomerModel) returns (google.protobuf.Empty);
+  rpc EditCustomers (CustomerModel) returns (google.protobuf.Empty);
+  rpc DeleteCustomers (CustomerRequest) returns (google.protobuf.Empty );
+}
+
+
+message CustomerRequest {
+    string Id =1;
+}
+
+message CustomerModel {
+    string Id = 1;
+    string FirstName = 2;
+    string LastName = 3;
+    string Email = 4;
+    string PreferenceId = 5;
+}
