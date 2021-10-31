@@ -1,0 +1,14 @@
+﻿{
+  "profiles": {
+    "Otus.Teaching.Pcf.Preferences.WebHost": {
+      "commandName": "Project",
+      "launchUrl": "swagger/index.html",
+      "dotnetRunMessages": "true",
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:8094",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
