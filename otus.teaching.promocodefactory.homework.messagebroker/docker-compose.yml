@@ -1,0 +1,104 @@
+version: '3'
+services:
+  #Administration Api
+  promocode-factory-administration-api:
+    build: src/Otus.Teaching.Pcf.Administration/
+    container_name: 'promocode-factory-administration-api'
+    restart: always
+    ports:
+      - "8091:80"
+    environment:
+      - "ConnectionStrings:PromocodeFactoryAdministrationDb=Host=promocode-factory-administration-db;Database=promocode_factory_administration_db;Username=postgres;Password=docker"          
+    depends_on: 
+      - promocode-factory-administration-db
+      - rabbitmq
+    networks:
+      - elknetwork
+  #Administration Db
+  promocode-factory-administration-db:
+    image: "postgres:9.6.17"
+    container_name: 'promocode-factory-administration-db'
+    restart: always 
+    ports:
+      - 5433:5432
+    environment: 
+      - POSTGRES_PASSWORD=docker
+    networks:
+      - elknetwork
+
+  #ReceivingFromPartner Api
+  promocode-factory-receiving-from-partner-api:
+    build: src/Otus.Teaching.Pcf.ReceivingFromPartner/
+    container_name: 'promocode-factory-receiving-from-partner-api'
+    restart: always
+    ports:
+      - "8092:80"
+    environment:
+      - "ConnectionStrings:PromocodeFactoryReceivingFromPartnerDb=Host=promocode-factory-receiving-from-partner-db;Database=promocode_factory_receiving_from_partner_db;Username=postgres;Password=docker"
+    depends_on: 
+      - promocode-factory-receiving-from-partner-db
+      - rabbitmq
+    networks:
+      - elknetwork
+  #ReceivingFromPartner Db
+  promocode-factory-receiving-from-partner-db:
+    image: "postgres:9.6.17"
+    container_name: 'promocode-factory-receiving-from-partner-db'
+    restart: always 
+    ports:
+      - 5434:5432
+    environment: 
+      - POSTGRES_PASSWORD=docker
+    networks:
+      - elknetwork
+  
+  #GivingToCustomer Api
+  promocode-factory-giving-to-customer-api:
+    build: src/Otus.Teaching.Pcf.GivingToCustomer/
+    container_name: 'promocode-factory-giving-to-customer-api'
+    restart: always
+    ports:
+      - "8093:80"
+    environment:
+      - "ConnectionStrings:PromocodeFactoryGivingToCustomerDb=Host=promocode-factory-giving-to-customer-db;Database=promocode_factory_giving_to_customer_db;Username=postgres;Password=docker"
+    depends_on: 
+      - promocode-factory-giving-to-customer-db
+      - rabbitmq
+    networks:
+      - elknetwork
+  #GivingToCustomer Db
+  promocode-factory-giving-to-customer-db:
+    image: "postgres:9.6.17"
+    container_name: 'promocode-factory-giving-to-customer-db'
+    restart: always 
+    ports:
+      - 5435:5432
+    environment: 
+      - POSTGRES_PASSWORD=docker
+    networks:
+      - elknetwork
+
+  #MessageBroker
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: my-rabbit
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - ./rabbitmq/etc/definitions.json:/etc/rabbitmq/definitions.json
+      - ./rabbitmq/etc/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+      - ./rabbitmq/data:/var/lib/rabbitmq/mnesia/rabbit@my-rabbit
+      - ./rabbitmq/logs:/var/log/rabbitmq/log
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - elknetwork
+  
+      
+networks:
+  elknetwork:
+    driver: bridge
