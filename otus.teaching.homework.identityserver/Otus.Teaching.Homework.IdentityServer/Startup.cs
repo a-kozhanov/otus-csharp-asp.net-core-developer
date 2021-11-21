@@ -62,8 +62,8 @@ namespace IdentityServer
                     // register your IdentityServer with Google at https://console.developers.google.com
                     // enable the Google+ API
                     // set the redirect URI to https://localhost:7777/signin-google    
-                    options.ClientId = "723151777522-7dt2ti6b2oq9hmrem9c2obchks6ildqs.apps.googleusercontent.com";
-                    options.ClientSecret = "70-8sb0wk6_9xtNM1HtQdx45";
+                    options.ClientId = "";
+                    options.ClientSecret = "";
                 });
 
             services.AddAuthentication()
@@ -73,8 +73,8 @@ namespace IdentityServer
             
                     // register your IdentityServer with Facebook at https://developers.facebook.com/apps
             
-                    options.ClientId = "1093722324472497";
-                    options.ClientSecret = "7b05326ed4dcfcb4825b7723156b4c59";
+                    options.ClientId = "";
+                    options.ClientSecret = "";
                     options.Scope.Add("email");
                     options.Scope.Add("public_profile");
                     options.Scope.Add("user_age_range");
